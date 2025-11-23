@@ -20,6 +20,7 @@ connectDB();
 
 //Api EndPoints
 app.use("/api/food", foodRouter)
+app.use('/images',express.static('Uploads') )
 
 
 
