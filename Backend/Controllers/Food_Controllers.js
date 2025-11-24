@@ -6,7 +6,7 @@ import fs from 'fs';
 //Add food item
 const addFood = async ( req, res) =>{
 
-  let image_fileName = `$(req.file.filename)`;
+  let image_fileName = `${req.file.filename}`;
 
   const food = new FoodModel({
     name : req.body.name,
@@ -27,11 +27,39 @@ const addFood = async ( req, res) =>{
 
 }
 
-//all food list
+// View all food list from database
 const listFood = async (req, res) =>{
+  try {
+    const foods = await FoodModel.find({});
+    res.json({success: true, data: foods})
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success: false , message : "error when featching food list"})
+    
+    
+  }
+
+}
+
+//Remove food Item from database
+const removeFood = async (req, res) =>{
+  try {
+    const food = await FoodModel.findById(req.body.id);
+    fs.unlink(`Uploads/${food.image}`, () =>{});
+
+    await FoodModel.findByIdAndDelete(req.body.id)
+    res.json({success: true, message : "Food Item deleted successfully"})
+    
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message : "Error when i deleting food Item"})
+    
+    
+  }
 
 }
 
 
 
-export {addFood, listFood}
+export {addFood, listFood, removeFood}
