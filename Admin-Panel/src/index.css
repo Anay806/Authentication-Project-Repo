@@ -24,3 +24,8 @@ hr{
   height: 1px;
   background-color:#a9a9a9 ;
 }
+
+.sidebaar-option.active{
+  background-color: #fff0ed;
+  border-color: tomato;
+}
