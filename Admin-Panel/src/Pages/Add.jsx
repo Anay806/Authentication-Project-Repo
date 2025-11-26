@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 const Add = () => {
   const url = "http://localhost:4000";
   const [image, setImage] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null)
-  const [imageFile , setImageFile] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -30,10 +30,10 @@ const Add = () => {
     formData.append("category", data.category);
     formData.append("price", Number(data.price));
     if (image) formData.append("image", image);
-    if(imageFile) formData.append("image", imageFile)
+    if (imageFile) formData.append("image", imageFile);
     try {
-      const response = await axios.post(`${url}/api/food/add`, formData,{
-        headers:{"content-Type" : "multipart/form-data"}
+      const response = await axios.post(`${url}/api/food/add`, formData, {
+        headers: { "content-Type": "multipart/form-data" },
       });
 
       if (response.data.success) {
@@ -44,11 +44,12 @@ const Add = () => {
           price: "",
         });
         setImage(false);
-        setImagePreview(null)
-        toast.success("Food Item Added Successfully")
+        setImagePreview(null);
+        setImageFile(null)
+        toast.success("Food Item Added Successfully");
       }
     } catch (error) {
-      toast.error("Error while Adding Food Item")
+      toast.error("Error while Adding Food Item");
     }
   };
 
@@ -69,11 +70,11 @@ const Add = () => {
           </label>
           <input
             ref={fileInputRef}
-            onChange={(e) =>{
-              const file = e.target.files?.[0] ;
-              if(!file) return;
-              setImageFile(file)
-              setImagePreview(URL.createObjectURL(file))
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              setImageFile(file);
+              setImagePreview(URL.createObjectURL(file));
             }}
             type="file"
             hidden
