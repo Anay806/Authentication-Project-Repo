@@ -6,7 +6,10 @@ import fs from 'fs';
 //Add food item
 const addFood = async ( req, res) =>{
 
-  let image_fileName = `${req.file.filename}`;
+  if(!req.file){
+    return res.json({success:false, message: "Image not found"})
+  }
+  let image_fileName = `${req.file.filename}`
 
   const food = new FoodModel({
     name : req.body.name,
@@ -46,8 +49,10 @@ const listFood = async (req, res) =>{
 const removeFood = async (req, res) =>{
   try {
     const food = await FoodModel.findById(req.body.id);
-    fs.unlink(`Uploads/${food.image}`, () =>{});
-
+    if(food?.image){
+       fs.unlink(`Uploads/${food.image}`, () =>{});
+    }
+  
     await FoodModel.findByIdAndDelete(req.body.id)
     res.json({success: true, message : "Food Item deleted successfully"})
     
