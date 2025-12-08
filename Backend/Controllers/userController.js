@@ -9,16 +9,41 @@ import 'dotenv/config'
 //login user
 
 const loginUser = async (req, res) =>{
+  const {password, email} = req.body;
+  try {
+    const user = await userModel.findOne({email});
+
+    if(!user){
+      res.json({success:false, message: "User Not exists"})
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if(!isMatch){
+     return res.json({success:false, message: "Invalid Credentials"})
+    }
+
+    const token = createToken (user._id);
+    res.json({success:true, token})
+
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message: "Error"})
+    
+    
+  }
 
 }
 
 const createToken =(id) =>{
-  return jwt.sign({id}, process.env.jwt_SECRET)
+  return jwt.sign({id}, process.env.JWT_SECRET)
 }
 
 //register user
 const registerUser = async (req,res) =>{
-  const {name, password , email} =req.body;
+  console.log(req.body);
+  
+  const {name, password , email} = req.body;
   try {
     //Cheacking if already exists
     const exists = await userModel.findOne({email});
@@ -44,17 +69,12 @@ const registerUser = async (req,res) =>{
     const newUser = new userModel({
       name:name,
       email: email,
-      passwaord: hashedPassword,
+      password: hashedPassword,
     })
 
     const user = await newUser.save();
     const token = createToken(user._id)
     res.json({success: true,token })
-
-    
-
-
-
 
 
   } catch (error) {
