@@ -16,6 +16,8 @@ import Loginpopup from './Pages/Loginpopup'
 const App = () => {
   const [location, setLocation] = useState()
   const [openDropDown, setOpenDropDown] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
+
 
   const getLocation = async () =>{
     navigator.geolocation.getCurrentPosition(async pos =>{
@@ -46,8 +48,9 @@ const App = () => {
   },[])
   return (
     <>
+    { showLogin ? <Loginpopup setShowLogin={setShowLogin} /> : <></>}
     <BrowserRouter>
-    <Navbar getLocation={getLocation} location={location} openDropDown={openDropDown} setOpenDropDown={setOpenDropDown}></Navbar>
+    <Navbar getLocation={getLocation} location={location} openDropDown={openDropDown} setOpenDropDown={setOpenDropDown} setShowLogin={setShowLogin}></Navbar>
     <div>
       <Routes>
         <Route path='/' element={<Home />} />

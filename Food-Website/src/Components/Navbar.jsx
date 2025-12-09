@@ -8,7 +8,7 @@ import { useCart } from "../Context/CartContext";
 import Loginpopup from "../Pages/Loginpopup";
 
 
-const Navbar = ({ getLocation, location , openDropDown, setOpenDropDown}) => {
+const Navbar = ({ getLocation, location , openDropDown, setOpenDropDown, setShowLogin}) => {
   const toggleDropDown =() =>{
     setOpenDropDown(!openDropDown)
   }
@@ -98,7 +98,7 @@ const Navbar = ({ getLocation, location , openDropDown, setOpenDropDown}) => {
             >
               <li>Contact</li>
             </NavLink>
-             <NavLink to={"/Loginpopup"}
+             <NavLink to={"/Loginpopup"} onClick={() =>setShowLogin(true)}
              className={({isActive}) =>
               `${ 
                 isActive 
@@ -117,12 +117,7 @@ const Navbar = ({ getLocation, location , openDropDown, setOpenDropDown}) => {
             {cartItems.length}
             </span>
           </Link>
-{/* 
-          <Link to={"/loginpopup"} className="relative">
-          <Loginpopup  className="w-7 h-7 items-center"/>
-          
-          
-          </Link> */}
+
 
           
         </nav>

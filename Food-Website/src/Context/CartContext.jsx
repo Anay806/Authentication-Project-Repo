@@ -8,6 +8,8 @@ export const CartProvider = ({children}) =>{
 
 
   const [cartItems, setCartItems] = useState([]);
+  const url = "http://localhost:4000"
+  const [token , setToken] = useState("")
 
   const addToCart = (product) =>{
     const itemInCart = cartItems.find((item) => item.id === product.id);
@@ -53,7 +55,7 @@ export const CartProvider = ({children}) =>{
 
 
 
-  return <CartContext.Provider value={{cartItems, setCartItems, addToCart, updateQuantity, deleteItem}}>
+  return <CartContext.Provider value={{cartItems, setCartItems, addToCart, updateQuantity, deleteItem, url, token , setToken}}>
     {children}
 
     </CartContext.Provider>
