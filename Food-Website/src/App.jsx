@@ -48,7 +48,8 @@ const App = () => {
   },[])
   return (
     <>
-    { showLogin ? <Loginpopup setShowLogin={setShowLogin} /> : <></>}
+    {/* { showLogin ? <Loginpopup setShowLogin={setShowLogin} /> : <></>}
+    {showLogin && <Loginpopup setShowLogin={setShowLogin} />} */}
     <BrowserRouter>
     <Navbar getLocation={getLocation} location={location} openDropDown={openDropDown} setOpenDropDown={setOpenDropDown} setShowLogin={setShowLogin}></Navbar>
     <div>

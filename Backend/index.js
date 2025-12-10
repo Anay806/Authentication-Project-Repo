@@ -31,7 +31,7 @@ app.use("/api/user", userRouter)
 
 
 app.get('/', (req, res) =>{
-  res.send('Hello World How are you')
+  res.send('Api Working')
 
 })
 
